@@ -25,7 +25,6 @@ namespace WpfMailSender
     public partial class MainWindow : Window
     {
         byte[] file;
-        string fileName;
         public MainWindow()
         {
             InitializeComponent();
@@ -46,10 +45,14 @@ namespace WpfMailSender
                         rtbBody.Document.ContentEnd).Text,
 
                 };
+                if (file != null)
+                {
                 model.Attachments.Add(new MailModel.Attachment {Name = FileName.Content.ToString() ,
                     Content = file
 
                 });
+                }
+
                 MessageBox.Show(await service.Send(model));
             }
             catch (Exception ex)
